@@ -1,0 +1,64 @@
+{% extends 'index.html'%} {% block title%} Karlis Filipsons Blog {% endblock%} {% block head %} {{super()}}
+<style type="text/css">
+    h1 {
+        color: #336699;
+    }
+</style>
+{% endblock %} {% block content%}
+<div class="row hidden-xs hidden-sm">
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg banner" src="https://images6.alphacoders.com/426/426414.jpg"/>
+        <img align="left" class="fb-image-profile thumbnail" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg" alt="Profile image example" />
+        <div class="fb-profile-text">
+            <h1>Karlis Filipsons</h1>
+            <p>Eat, sleep, code, repeat.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Articles</h2>
+                <hr>
+                <div class="well">
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Finally finished my blog!</h4>
+                            <p class="text-right">By Karlis Filipsons</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet augue.</p>
+                            <ul class="list-inline list-unstyled pull-right">
+                                <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                                <li>|</li>
+                                <br class="hidden-lg hidden-md hidden-sm">
+                                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                                <li>|</li>
+                                <li>
+                                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                                    <span><i class="fa fa-facebook-square"></i></span>
+                                    <span><i class="fa fa-twitter-square"></i></span>
+                                    <span><i class="fa fa-google-plus-square"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h2 class="margin-0">Article History</h2>
+        <hr>
+        <h5>Finally finished my website!</h5>
+        <p class="margin-0">Took me some time but I have finally finished...</p>
+        <a href="#">Read More...</a>
+        <hr>
+    </div>
+</div>
+
+
+
+{% endblock %}
