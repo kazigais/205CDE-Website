@@ -1,4 +1,4 @@
-{% extends 'index.html'%} {% block title%} Administration {% endblock%} {% block head %} {{super()}}
+{% extends 'index.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block title%} Administration {% endblock%} {% block head %} {{super()}}
 <style type="text/css">
     h1 {
         color: #336699;
@@ -31,22 +31,17 @@
 <div class="col-md-10 content">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <b>Dashboard</b>
+            Dashboard
         </div>
         <div class="panel-body">
-            <form role="form">
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title">
-                </div>
-                <div class="form-group">
-                    <label for="content">Content:</label>
-                    <textarea class="form-control" rows="5" id="content"></textarea>
-                </div>
-                <button type="submit" class="btn btn-block btn-default">Submit</button>
-            </form>
+            {{ wtf.quick_form(form) }} {% if title %}
+            <p> Your name is: {{ title }}</p>
+            <p>and your comments are: {{ content }}</p>
+            <p>A big thank you!</p>
+            {% endif %}
         </div>
     </div>
+
 </div>
 
 {% endblock %}
