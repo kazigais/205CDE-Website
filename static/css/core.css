@@ -384,6 +384,22 @@ h1.page-header {
 }
 /* DASHBOARD END */
 
+/* Comment Box */
+.wrapper {
+    position: relative;
+}
+
+.wrapper .bottom {
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+    width: 100%;
+}
+.comment-box{
+    max-height:150px;
+    overflow-y: scroll;
+}
+
 .margin-0{
     margin:0px;
 }

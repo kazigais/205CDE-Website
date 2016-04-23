@@ -21,29 +21,43 @@
             <div class="panel-body">
                 <h2>Articles</h2>
                 <hr> {% for entry in entries %}
-                <div class="well">
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">{{entry.title}}</h4>
-                            <p class="text-right">By Karlis Filipsons</p>
-                            <p>{{entry.content}}</p>
-                            <ul class="list-inline list-unstyled pull-right">
-                                <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
-                                <li>|</li>
-                                <br class="hidden-lg hidden-md hidden-sm">
-                                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-                                <li>|</li>
-                                <li>
-                                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                                    <span><i class="fa fa-facebook-square"></i></span>
-                                    <span><i class="fa fa-twitter-square"></i></span>
-                                    <span><i class="fa fa-google-plus-square"></i></span>
-                                </li>
-                            </ul>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{entry.title}}</h4>
+                                <p class="text-right">By Karlis Filipsons</p>
+                                <p>{{entry.content}}</p>
+                                <ul class="list-inline list-unstyled pull-right">
+                                    <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
+                                    <li>|</li>
+                                    <br class="hidden-lg hidden-md hidden-sm">
+                                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                                    <li>
+                                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                                        <span><i class="fa fa-facebook-square"></i></span>
+                                        <span><i class="fa fa-twitter-square"></i></span>
+                                        <span><i class="fa fa-google-plus-square"></i></span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        <div class="wrapper">
+                            <div class="well comment-box">
+                                <span>Very cool</span><small class="pull-right"><i class="glyphicon glyphicon-calendar"></i> 22-04-2016 </small>
+                                <hr>
+                            </div>
+                            <div class="input-group  bottom">
+                                <input type="text" class="form-control padding-0" placeholder="Comment...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Submit</button>
+                            </span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 {% endfor %}
@@ -52,11 +66,11 @@
     </div>
     <div class="col-md-4">
         <h2 class="margin-0">Article History</h2>
-        <hr>
-        <h5>Finally finished my website!</h5>
-        <p class="margin-0">Took me some time but I have finally finished...</p>
+        <hr> {% for entry in entries %}
+        <h5>{{entry.title}}</h5>
+        <p class="margin-0">{{entry.content}}</p>
         <a href="#">Read More...</a>
-        <hr>
+        <hr> {% endfor %}
     </div>
 </div>
 

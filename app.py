@@ -36,7 +36,7 @@ def dashboard():
         items = {};
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute("SELECT * FROM articles_table")
+        cur.execute("SELECT * FROM articles_table ORDER BY id DESC")
         entries = cur.fetchall()
         items.update({'entries':entries});
         items.update({'form':form});
@@ -49,7 +49,7 @@ def home():
     with sqlite3.connect(app.config['DATABASE']) as con:
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute("SELECT * FROM articles_table")
+        cur.execute("SELECT * FROM articles_table ORDER BY id DESC")
         entries = cur.fetchall()
         return render_template('home.html', entries=entries)
 
