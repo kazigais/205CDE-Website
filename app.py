@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import os
 from flask_bootstrap import Bootstrap
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Length
-import sqlite3
+import sqlite3, datetime
 
 app = Flask(__name__)
 
@@ -25,13 +25,23 @@ def dashboard():
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
+        now = datetime.datetime.now()
+        date = now.strftime("%Y-%m-%d %H:%M")
         with sqlite3.connect(app.config['DATABASE']) as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO articles_table (title, content) VALUES (?,?)", (title, content))
+            cur.execute("INSERT INTO articles_table (title, content, articleDate) VALUES (?,?,?)", (title, content, date))
             con.commit()
-
         return redirect(url_for('home'))
-    return render_template('dashboard.html', form=form)
+    with sqlite3.connect(app.config['DATABASE']) as con:
+        items = {};
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute("SELECT * FROM articles_table")
+        entries = cur.fetchall()
+        items.update({'entries':entries});
+        items.update({'form':form});
+        print(items);
+        return render_template('dashboard.html', items=items)
 
 
 @app.route('/')
@@ -46,6 +56,18 @@ def home():
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
+
+@app.route('/dashboard/remove', methods=['POST'])
+def remove():
+    with sqlite3.connect(app.config['DATABASE']) as con:
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        print request.data
+        cur.execute("DELETE FROM articles_table WHERE id = " + request.data)
+        con.commit()
+        return "200"
+
+
 
 
 

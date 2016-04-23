@@ -15,10 +15,10 @@
                 <!-- Main Menu -->
                 <div class="side-menu-container">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-pencil"></span> New Article</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> Update Article</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Delete Article</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile Image</a></li>
+                        <li class="active"><a data-toggle="tab" href="#newArticle"><span class="glyphicon glyphicon-pencil"></span> New Article</a></li>
+                        <li><a data-toggle="tab" href="#updateArticle"><span class="glyphicon glyphicon-wrench"></span> Update Article</a></li>
+                        <li><a data-toggle="tab" href="#deleteArticle"><span class="glyphicon glyphicon-remove"></span> Delete Article</a></li>
+                        <li><a data-toggle="tab" href="#profileImage"><span class="glyphicon glyphicon-user"></span> Profile Image</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     </ul>
                 </div>
@@ -28,18 +28,65 @@
         </div>
     </div>
 </div>
-<div class="col-md-10 content">
-    <div class="panel panel-default">
+<div class="col-md-10 content tab-content">
+    <div id="newArticle" class="tab-pane panel panel-default fade in active">
         <div class="panel-heading">
-            Dashboard
+            Dashboard - New Article
         </div>
         <div class="panel-body">
-            {{ wtf.quick_form(form) }} {% if title %}
+            {{ wtf.quick_form(items.form) }} {% if title %}
             <p> Your name is: {{ title }}</p>
             <p>and your comments are: {{ content }}</p>
             <p>A big thank you!</p>
             {% endif %}
         </div>
+    </div>
+    <div id="updateArticle" class="tab-pane panel panel-default fade">
+        <div class="panel-heading">
+            Dashboard - Update Article
+        </div>
+        <div class="panel-body">
+            {{ wtf.quick_form(items.form) }} {% if title %}
+            <p> Your name is: {{ title }}</p>
+            <p>and your comments are: {{ content }}</p>
+            <p>A big thank you!</p>
+            {% endif %}
+        </div>
+    </div>
+    <div id="deleteArticle" class="tab-pane panel panel-default fade">
+        <div class="panel-heading">
+            Dashboard - Delete Article
+        </div>
+        <div class="panel-body">
+                {% for entry in items.entries %}
+                <div class="well">
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
+                        </a>
+                        <div class="media-body">
+                            <a onclick="removeById({{entry.id}})" href="#"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+                            <h4 class="media-heading">{{entry.title}}</h4>
+                            <p class="text-right">By Karlis Filipsons</p>
+                            <p>{{entry.content}}</p>
+                            <ul class="list-inline list-unstyled pull-right">
+                                <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                                <li>|</li>
+                                <br class="hidden-lg hidden-md hidden-sm">
+                                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                                <li>|</li>
+                                <li>
+                                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                                    <span><i class="fa fa-facebook-square"></i></span>
+                                    <span><i class="fa fa-twitter-square"></i></span>
+                                    <span><i class="fa fa-google-plus-square"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
     </div>
 
 </div>
