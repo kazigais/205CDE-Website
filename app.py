@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Length
-import sqlite3, datetime
+import sqlite3, datetime, json
 
 app = Flask(__name__)
 
@@ -50,7 +50,10 @@ def home():
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute("SELECT * FROM articles_table ORDER BY id DESC")
-        entries = cur.fetchall()
+        articles = cur.fetchall()
+        cur.execute("SELECT * FROM comments_table");
+        comments = cur.fetchall()
+        entries = {'articles': articles, 'comments':comments}
         return render_template('home.html', entries=entries)
 
 @app.route('/admin')
@@ -64,8 +67,21 @@ def remove():
         cur = con.cursor()
         print request.data
         cur.execute("DELETE FROM articles_table WHERE id = " + request.data)
+        cur.execute("DELETE FROM comments_table WHERE article_id = " + request.data)
         con.commit()
         return "200"
+    
+@app.route('/comment', methods=['POST'])
+def comment():
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M")
+    data = json.loads(request.data)
+    print (data['content']);
+    with sqlite3.connect(app.config['DATABASE']) as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO comments_table (article_id, commentContent, commentDate) VALUES (?,?,?)", (data["id"], data["content"], date))
+        con.commit()
+        return "200";
 
 
 

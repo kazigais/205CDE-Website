@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS articles_table;
+DROP TABLE IF EXISTS comments_table;
 
 
 CREATE TABLE articles_table (
@@ -9,8 +10,9 @@ CREATE TABLE articles_table (
 );
 CREATE TABLE comments_table (
     id integer PRIMARY KEY,
-    article_id integer FOREIGN KEY,
-    content text NOT NULL,
-    commentDate text not NULL
+    article_id integer,
+    commentContent text,
+    commentDate text,
+    FOREIGN KEY(article_id) REFERENCES articles_table(id)
 );
     

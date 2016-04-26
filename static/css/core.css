@@ -1,7 +1,19 @@
-/* PROFILE */
-.banner{
+body{
+
+    background-image: url(http://p1.pichost.me/i/25/1479451.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+
     
 }
+.cheese{
+   background-image: url(http://static.wixstatic.com/media/d1de3b_76ce5e8e312348c19c11981f05fee70b.png_srz_712_371_85_22_0.50_1.20_0.00_png_srz); 
+}
+.container{
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px;
+}
+/* PROFILE */
 .fb-profile img.fb-image-lg{
     z-index: 0;
     width: 130%;  
@@ -409,4 +421,15 @@ h1.page-header {
 }
 .margin-10{
     margin:10px;
+}
+/* Comment Box END */
+
+
+
+/* random */
+.navbar{
+    margin-bottom: 0;
+}
+.margin-bottom-20{
+    margin-bottom: 20px;
 }
