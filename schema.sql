@@ -15,4 +15,10 @@ CREATE TABLE comments_table (
     commentDate text,
     FOREIGN KEY(article_id) REFERENCES articles_table(id)
 );
+CREATE TABLE user_table (
+    id integer PRIMARY KEY,
+    user_name text NOT NULL,
+    user_password text NOT NULL,
+    user_email text NOT NULL
+);
     

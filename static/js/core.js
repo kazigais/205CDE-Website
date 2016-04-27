@@ -1,6 +1,6 @@
 removeById = function(id){
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "http://localhost:8080/dashboard/remove", true);
+    xhr.open('POST', "/dashboard/remove", true);
     xhr.onload = function () {
         console.log(this.responseText);
         window.location.hash = 'deleteArticle';
@@ -16,9 +16,24 @@ comment = function(id, content){
         "content": content
     };
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8080/comment", true);
+    xhr.open("POST", "/comment", true);
     xhr.onload = function(){
         console.log(this.responseText);
     }
+    xhr.send(JSON.stringify(items));
+}
+
+login = function(user, pass){
+    console.log("iet");
+    var items = {
+        "username": user,
+        "password": pass
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "/login", true);
+    xhr.onload = function () {
+        console.log(this.responseText);
+        window.location = "/dashboard";
+    };
     xhr.send(JSON.stringify(items));
 }
