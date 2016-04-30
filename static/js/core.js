@@ -37,3 +37,7 @@ login = function(user, pass){
     };
     xhr.send(JSON.stringify(items));
 }
+
+count_comments = function(){
+    console.log("{{entries.comments}}"); // TODO: make counter. Pass variable using Jinja
+}

@@ -29,16 +29,15 @@
                                 <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading">{{entry.title}}</h4>
+                                <a href="/view/{{entry.id}}"><h4 class="media-heading">{{entry.title}}</h4></a>
                                 <p class="text-right">By Karlis Filipsons</p>
                                 <p>{{entry.content}}</p>
                                 <ul class="list-inline list-unstyled pull-right">
                                     <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
                                     <li>|</li>
                                     <br class="hidden-lg hidden-md hidden-sm">
-                                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                                    <span><i class="glyphicon glyphicon-comment"></i> {{ entries.comments | length if entries.comments[loop.index].article_id == entry.id }}</span>
                                     <li>
-                                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
                                         <span><i class="fa fa-facebook-square"></i></span>
                                         <span><i class="fa fa-twitter-square"></i></span>
                                         <span><i class="fa fa-google-plus-square"></i></span>

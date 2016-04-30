@@ -1,0 +1,60 @@
+{% extends 'index.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block title%} View One {% endblock%} {% block head %} {{super()}} {% endblock %} {% block content%} {% for entry in entries.articles %}
+<style type="text/css">
+    h1 {
+        color: #336699;
+    }
+    
+    .container {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .cheese {
+        background-image: none;
+    }
+</style>
+<div class="row">
+    <a href="/"><h2><i class="glyphicon glyphicon-arrow-left"></i></h2></a>
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
+                </a>
+                <div class="media-body">
+                    <a href="/view/{{entry.id}}"><h4 class="media-heading">{{entry.title}}</h4></a>
+                    <p class="text-right">By Karlis Filipsons</p>
+                    <p>{{entry.content}}</p>
+                    <ul class="list-inline list-unstyled pull-right">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
+                        <li>|</li>
+                        <br class="hidden-lg hidden-md hidden-sm">
+                        <span><i class="glyphicon glyphicon-comment"></i> </span>
+                        <li>
+                            <span><i class="fa fa-facebook-square"></i></span>
+                            <span><i class="fa fa-twitter-square"></i></span>
+                            <span><i class="fa fa-google-plus-square"></i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="well comment-box">
+                    {% for comments in entries.comments if comments.article_id == entry.id %}
+                    <span>{{comments.commentContent}}</span><small class="pull-right"><i class="glyphicon glyphicon-calendar"></i> {{comments.commentDate}} </small>
+                    <hr> {% endfor %}
+                </div>
+                <div class="input-group  bottom">
+                    <input name="comment" id="comment{{ entry.id }}" type="text" class="form-control padding-0" placeholder="Comment...">
+                    <span class="input-group-btn">
+                                <button onclick="comment({{entry.id}}, document.getElementById('comment{{ entry.id }}').value)" class="btn btn-default" type="button">Submit</button>
+                            </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock %}
