@@ -1,10 +1,14 @@
-{% extends 'index.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block title%} Administration {% endblock%} {% block head %} {{super()}}
+{% extends 'index.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block title%} Administration {% endblock%} {% block head %} {{super()}} {% endblock %} {% block content%}
 <style type="text/css">
-    h1 {
-        color: #336699;
+    .container {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .cheese {
+        background-image: none;
     }
 </style>
-{% endblock %} {% block content%}
 <div class="col-md-2 sidebar">
     <div class="row">
         <!-- uncomment code for absolute positioning tweek see top comment in css -->
@@ -46,11 +50,30 @@
             Dashboard - Update Article
         </div>
         <div class="panel-body">
-            {{ wtf.quick_form(items.form) }} {% if title %}
-            <p> Your name is: {{ title }}</p>
-            <p>and your comments are: {{ content }}</p>
-            <p>A big thank you!</p>
-            {% endif %}
+            {% for entry in items.entries %}
+            <div class="well">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object thumbnail article-profile" src="{{ url_for('static',filename='upload_folder/profileImage.jpg') }}">
+                    </a>
+                    <div class="media-body">
+                        <a class="pull-right" href="dashboard/update/{{entry.id}}"><button class="btn btn-xs btn-primary">Update</button></a>
+                        <h4 class="media-heading">{{entry.title}}</h4>
+                        <p class="text-right">By Karlis Filipsons</p>
+                        <p>{{entry.content}}</p>
+                        <ul class="list-inline list-unstyled pull-right">
+                            <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
+                            <li>
+                                <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                                <span><i class="fa fa-facebook-square"></i></span>
+                                <span><i class="fa fa-twitter-square"></i></span>
+                                <span><i class="fa fa-google-plus-square"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
     <div id="deleteArticle" class="tab-pane panel panel-default fade">
@@ -58,37 +81,46 @@
             Dashboard - Delete Article
         </div>
         <div class="panel-body">
-                {% for entry in items.entries %}
-                <div class="well">
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
-                        </a>
-                        <div class="media-body">
-                            <a onclick="removeById({{entry.id}})" href="#"><i class="glyphicon glyphicon-remove pull-right"></i></a>
-                            <h4 class="media-heading">{{entry.title}}</h4>
-                            <p class="text-right">By Karlis Filipsons</p>
-                            <p>{{entry.content}}</p>
-                            <ul class="list-inline list-unstyled pull-right">
-                                <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
-                                <li>|</li>
-                                <br class="hidden-lg hidden-md hidden-sm">
-                                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-                                <li>|</li>
-                                <li>
-                                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                                    <span><i class="fa fa-facebook-square"></i></span>
-                                    <span><i class="fa fa-twitter-square"></i></span>
-                                    <span><i class="fa fa-google-plus-square"></i></span>
-                                </li>
-                            </ul>
-                        </div>
+            {% for entry in items.entries %}
+            <div class="well">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object thumbnail article-profile" src="{{ url_for('static',filename='upload_folder/profileImage.jpg') }}">
+                    </a>
+                    <div class="media-body">
+                        <a onclick="removeById({{entry.id}})" href="#"><i class="glyphicon glyphicon-remove pull-right"></i></a>
+                        <h4 class="media-heading">{{entry.title}}</h4>
+                        <p class="text-right">By Karlis Filipsons</p>
+                        <p>{{entry.content}}</p>
+                        <ul class="list-inline list-unstyled pull-right">
+                            <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
+                            <li>
+                                <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                                <span><i class="fa fa-facebook-square"></i></span>
+                                <span><i class="fa fa-twitter-square"></i></span>
+                                <span><i class="fa fa-google-plus-square"></i></span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
+        </div>
     </div>
-
+    <div id="profileImage" class="tab-pane panel panel-default fade">
+        <div class="panel-heading">
+            Dashboard - Profile Image
+        </div>
+        <div class="panel-body">
+            <h4>Current profile image</h4>
+            <img class="media-object thumbnail article-profile" src="{{ url_for('static',filename='upload_folder/profileImage.jpg') }}">
+            <h4>Select new profile image</h4>
+                <form action="dashboard/profileimage" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+      </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

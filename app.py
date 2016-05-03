@@ -4,9 +4,16 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import Form
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Length
-import sqlite3, datetime, json
+import sqlite3, datetime, json, ast
+
+
+UPLOAD_FOLDER = 'static/upload_folder'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
+
 
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'articles.db'),
@@ -45,6 +52,7 @@ def dashboard():
         items.update({'form':form})
         print(items)
         return render_template('dashboard.html', items=items)
+    
 @app.route('/dashboard/logout', methods=['GET'])
 def logout():
     if 'username' not in session:
@@ -126,6 +134,53 @@ def view(id):
         comments = cur.fetchall()
         entries = {'articles': articles, 'comments':comments}
         return render_template('viewOne.html', entries=entries)
+    
+@app.route('/dashboard/profileimage', methods=['POST', 'GET'])
+def profileimage():
+    if request.method == "POST":
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            # Make the filename safe, remove unsupported chars
+            filename = "profileImage.jpg"
+            # Move the file form the temporal folder to
+            # the upload folder we setup
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # Redirect the user to the uploaded_file route, which
+            # will basicaly show on the browser the uploaded file
+            return redirect(url_for('dashboard'))
+        return "File type not supported. Please upload JPG, JPEG or PNG only."
+    else:
+        return "200"
+
+# For a given file, return whether it's an allowed type or not
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+    
+@app.route('/dashboard/update/<id>', methods=['GET','POST'])
+def update(id):
+    if request.method == "GET":
+        with sqlite3.connect(app.config['DATABASE']) as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            cur.execute("SELECT * FROM articles_table WHERE id = " + id)
+            articles = cur.fetchall()
+            cur.execute("SELECT * FROM comments_table WHERE article_id = " + id)
+            comments = cur.fetchall()
+            entries = {'articles': articles, 'comments':comments}
+            return render_template('updateOne.html', entries=entries)
+    elif request.method == "POST":
+        data = json.loads(request.data)
+        with sqlite3.connect(app.config['DATABASE']) as con:
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            print (id)
+            cur.execute("UPDATE articles_table SET title='%s',content='%s' WHERE id = %s" % (data['updateTitle'], data['updateContent'], id))
+            con.commit()
+            return "200"
+    return "400"
+    
+
         
 
 

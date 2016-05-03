@@ -1,0 +1,34 @@
+{% extends 'index.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block title%} View One {% endblock%} {% block head %} {{super()}} {% endblock %} {% block content%} {% for entry in entries.articles %}
+<style type="text/css">
+    h1 {
+        color: #336699;
+    }
+    
+    .container {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .cheese {
+        background-image: none;
+    }
+</style>
+<div class="row">
+    <a href="/"><h2><i class="glyphicon glyphicon-arrow-left"></i></h2></a>
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="usr">Title:</label>
+                <input id="updateTitle" type="text" class="form-control" id="title" value="{{entry.title}}">
+            </div>
+            <div class="form-group">
+                <label for="usr">Content:</label>
+                <textarea id="updateContent" class="form-control" id="title" rows="5">{{entry.content}}</textarea>
+            </div>
+            <button onClick="update(document.getElementById('updateTitle').value, document.getElementById('updateContent').value, {{entry.id}})" class="btn btn-xs btn-primary pull-right">Update</button>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock %}

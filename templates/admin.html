@@ -1,10 +1,14 @@
 {% extends 'index.html'%} {% block title%} Administration {% endblock%} {% block head %} {{super()}}
+{% endblock %} {% block content%}
 <style type="text/css">
-    h1 {
-        color: #336699;
+    .container{
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .cheese{
+        background-image: none;   
     }
 </style>
-{% endblock %} {% block content%}
 <br>
 <br>
 <div class="row">
@@ -14,6 +18,7 @@
                 <h3 class="panel-title">Sign In</h3>
             </div>
             <div class="panel-body">
+                <fieldset>
                         <div class="form-group">
                             <input id="username" class="form-control" placeholder="Username" name="username" type="text" autofocus="">
                         </div>
@@ -22,6 +27,7 @@
                         </div>
                         <!-- Change this to a button or input when using this as a form -->
                         <button onclick="login(document.getElementById('username').value, document.getElementById('password').value)" class="btn btn-sm btn-block btn-success">Login</button>
+                    </fieldset>
             </div>
         </div>
     </div>

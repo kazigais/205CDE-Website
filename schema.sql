@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS articles_table;
 DROP TABLE IF EXISTS comments_table;
+DROP TABLE IF EXISTS user_table;
 
 
 CREATE TABLE articles_table (
@@ -21,4 +22,5 @@ CREATE TABLE user_table (
     user_password text NOT NULL,
     user_email text NOT NULL
 );
+INSERT INTO user_table VALUES('1','admin','admin','karlis.filipsons@gmail.com');
     

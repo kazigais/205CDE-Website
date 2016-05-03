@@ -7,9 +7,9 @@
 {% endblock %} {% block content%}
 <div class="row hidden-xs hidden-sm margin-bottom-20">
     <div class="fb-profile">
-<!--        <img align="left" class="fb-image-lg banner" src="https://images6.alphacoders.com/426/426414.jpg" />-->
-            
-        <img align="left" class="fb-image-profile thumbnail" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg" alt="Profile image example" />
+        <!--        <img align="left" class="fb-image-lg banner" src="https://images6.alphacoders.com/426/426414.jpg" />-->
+
+        <img align="left" class="fb-image-profile thumbnail" src="{{ url_for('static',filename='upload_folder/profileImage.jpg') }}" />
         <div class="fb-profile-text">
             <h1>Karlis Filipsons</h1>
             <p>Eat, sleep, code, repeat.</p>
@@ -25,18 +25,18 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object thumbnail article-profile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAldAAAAJDViYTFlMGVkLWRiMzAtNGNiOS1hZjIxLTYwYzNkZmZhN2FjMw.jpg">
+                            <a class="pull-left" href="/view/{{entry.id}}">
+                                <img class="media-object thumbnail article-profile" src="{{ url_for('static',filename='upload_folder/profileImage.jpg') }}">
                             </a>
                             <div class="media-body">
                                 <a href="/view/{{entry.id}}"><h4 class="media-heading">{{entry.title}}</h4></a>
                                 <p class="text-right">By Karlis Filipsons</p>
-                                <p>{{entry.content}}</p>
+                                <p>{{ entry.content[0:150] }}{% if entry.content|length>150 %}... <a href="/view/{{entry.id}}">Read More</a>{% endif %}</p>
                                 <ul class="list-inline list-unstyled pull-right">
                                     <li><span><i class="glyphicon glyphicon-calendar"></i> {{entry.articleDate}} </span></li>
                                     <li>|</li>
                                     <br class="hidden-lg hidden-md hidden-sm">
-                                    <span><i class="glyphicon glyphicon-comment"></i> {{ entries.comments | length if entries.comments[loop.index].article_id == entry.id }}</span>
+                                    <span><i class="glyphicon glyphicon-comment"></i> 0</span>
                                     <li>
                                         <span><i class="fa fa-facebook-square"></i></span>
                                         <span><i class="fa fa-twitter-square"></i></span>
@@ -49,8 +49,8 @@
                             <div class="well comment-box">
                                 {% for comments in entries.comments if comments.article_id == entry.id %}
                                 <span>{{comments.commentContent}}</span><small class="pull-right"><i class="glyphicon glyphicon-calendar"></i> {{comments.commentDate}} </small>
-                                <hr>
-                                {% endfor %}
+                                
+                                <hr> {% endfor %}
                             </div>
                             <div class="input-group  bottom">
                                 <input name="comment" id="comment{{ entry.id }}" type="text" class="form-control padding-0" placeholder="Comment...">
@@ -67,12 +67,14 @@
         </div>
     </div>
     <div class="col-md-4">
-        <h2 class="margin-0">Article History</h2>
-        <hr> {% for entry in entries.articles %}
-        <h5>{{entry.title}}</h5>
-        <p class="margin-0">{{entry.content}}</p>
-        <a href="#">Read More...</a>
-        <hr> {% endfor %}
+        <div class="col-xs-12">
+            <h2 class="margin-0">Article History</h2>
+            <hr> {% for entry in entries.articles %}
+            <a href="view/{{entry.id}}"><h5>{{entry.title}}</h5></a>
+            <p class="margin-0">{{ entry.content[0:50] }}{% if entry.content|length>50 %}...
+                <br><a href="/view/{{entry.id}}">Read More</a>{% endif %}</p>
+            <hr> {% endfor %}
+        </div>
     </div>
 </div>
 
