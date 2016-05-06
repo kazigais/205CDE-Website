@@ -38,7 +38,7 @@ login = function (user, pass) {
     xhr.send(JSON.stringify(items));
 }
 
-count_comments = function () {
+count_qs = function () {
     console.log("{{entries.comments}}"); // TODO: make counter. Pass variable using Jinja
 }
 
@@ -54,9 +54,6 @@ fileUpload = function (file) {
     xhr.send(formData);
 }
 update = function (title, content, id) {
-    
-    console.log(title);
-    console.log(content);
     var items = {
         "updateTitle": title
         , "updateContent": content

@@ -116,7 +116,6 @@ def comment():
     now = datetime.datetime.now()
     date = now.strftime("%Y-%m-%d %H:%M")
     data = json.loads(request.data)
-    print (data['content'])
     with sqlite3.connect(app.config['DATABASE']) as con:
         cur = con.cursor()
         cur.execute("INSERT INTO comments_table (article_id, commentContent, commentDate) VALUES (?,?,?)", (data["id"], data["content"], date))
